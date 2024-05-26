@@ -3,7 +3,7 @@ import "./CSS/LoginSignup.css";
 
 export default function LoginSignup() {
   return (
-    <div className="loginsignup">
+    <form className="loginsignup">
       <div className="loginsignup-container">
         <h1>Sign Up</h1>
         <div className="loginsignup-fields">
@@ -11,7 +11,12 @@ export default function LoginSignup() {
           <input type="email" placeholder="Email Address" />
           <input type="password" placeholder="Password" />
         </div>
-        <button>Continue</button>
+
+        <div className="loginsignup-btn">
+          <button>Continue</button>
+          <button type="reset">Reset</button>
+        </div>
+
         <p className="loginsignup-login">
           Already have an account? <span>Login here</span>
         </p>
@@ -20,6 +25,6 @@ export default function LoginSignup() {
           <p>By continuing, i agree to the terms of use and privacy policy.</p>
         </div>
       </div>
-    </div>
+    </form>
   );
 }

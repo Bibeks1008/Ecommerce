@@ -34,12 +34,17 @@
   font-size: 18px;
 }
 
-.loginsignup-container button {
+.loginsignup-btn {
+  display: flex;
+  gap: 15px;
+}
+
+.loginsignup-btn button {
   width: 580px;
   height: 72px;
   color: white;
   background: #ff4141;
-  margin-top: 30px;
+  margin-top: 15px;
   border: none;
   font-size: 24px;
   font-weight: 500;
