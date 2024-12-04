@@ -1,6 +1,6 @@
 import React from "react";
 import "./NewCollections.css";
-import new_collections from "../Assets/new_collections";
+import new_collections from "../Assets/new_collections.js";
 import Item from "../Item/Item.jsx";
 
 export default function NewCollections() {

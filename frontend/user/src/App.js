@@ -1,13 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import "./App.css";
-import Navbar from "./Components/Navbar/Navbar";
-import Shop from "./Pages/Shop";
-import Cart from "./Pages/Cart";
-import Product from "./Pages/Product";
-import ShopCategory from "./Pages/ShopCategory";
-import LoginSignup from "./Pages/LoginSignup";
-import Footer from "./Components/Footer/Footer";
+import Navbar from "./Components/Navbar/Navbar.jsx";
+import Shop from "./Pages/Shop.jsx";
+import Cart from "./Pages/Cart.jsx";
+import Product from "./Pages/Product.jsx";
+import ShopCategory from "./Pages/ShopCategory.jsx";
+import LoginSignup from "./Pages/LoginSignup.jsx";
+import Footer from "./Components/Footer/Footer.jsx";
 import men_banner from "./Components/Assets/banner_mens.png";
 import women_banner from "./Components/Assets/banner_women.png";
 import kid_banner from "./Components/Assets/banner_kids.png";

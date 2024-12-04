@@ -1,6 +1,6 @@
 import React from "react";
 import "./Popular.css";
-import data_product from "../Assets/data";
+import data_product from "../Assets/data.js";
 import Item from "../Item/Item.jsx";
 
 export default function Popular() {
