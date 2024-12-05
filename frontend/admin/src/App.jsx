@@ -14,7 +14,8 @@ function App() {
           <Navbar />
           <Sidebar />
           <Routes>
-            <Route path="/" element={<AdminLoginSignup />}></Route>
+            <Route path="/login" element={<AdminLoginSignup />}></Route>
+            {/* <Route path="/" element={<AddProduct />}></Route> */}
           </Routes>
         </BrowserRouter>
       </AdminContextProvider>
