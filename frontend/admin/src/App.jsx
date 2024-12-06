@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import AdminContextProvider from "./Context/Context";
 import AdminLoginSignup from "./pages/AdminLoginSignup";
+import AddProduct from "./pages/AddProduct";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Sidebar />
           <Routes>
             <Route path="/login" element={<AdminLoginSignup />}></Route>
-            {/* <Route path="/" element={<AddProduct />}></Route> */}
+            <Route path="/" element={<AddProduct />}></Route>
           </Routes>
         </BrowserRouter>
       </AdminContextProvider>
