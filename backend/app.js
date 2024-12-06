@@ -5,7 +5,7 @@ require("dotenv/config");
 const cors = require("cors");
 const multer = require("multer");
 
-const adminRoutes = require("./routes/admin");
+const adminRoutes = require("./routes/adminAuth");
 const productRoutes = require("./routes/product");
 
 const { fileStorage, fileFilter } = require("./helpers/multer");
@@ -17,6 +17,10 @@ app.use(bodyparser.json());
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
+
+app.get("/", (req, res) => {
+  res.send("Hello from the backend!");
+});
 
 app.use("/admin/auth", adminRoutes);
 app.use("/admin", productRoutes);

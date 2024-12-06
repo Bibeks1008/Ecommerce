@@ -21,12 +21,14 @@ exports.postAddProduct = async (req, res, next) => {
     old_price: old_price,
     category: category,
     image: imageUrl,
+    createdBy: req.adminId,
   });
 
   try {
     const result = await product.save();
     res.status(201).send({
-      message: "Product created successfully",
+      data: result,
+      message: "Product added successfully",
     });
   } catch (err) {
     if (!err.statusCode) {

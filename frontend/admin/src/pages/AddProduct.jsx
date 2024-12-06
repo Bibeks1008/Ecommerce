@@ -1,35 +1,21 @@
 import React, { useState } from "react";
 import BoxContainer from "../components/BoxContainer";
-import { Select, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
 import axios from "axios";
 
+import { BASE_URL } from "../../config";
+
 const AddProduct = () => {
-  const [category, setCategory] = useState("women");
-  const [image, setImage] = useState(null);
-
-  const handleImageChange = ({ file }) => {
-    // Only set the image when it is successfully uploaded
-    if (file.status === "done") {
-      setImage(file.originFileObj); // This is the actual file object
-    }
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
     console.log(data);
     try {
-      const response = await axios.post(
-        "http://localhost:8080/admin/add-product",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(BASE_URL + "/admin/add-product", data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     } catch (err) {
       console.log(err);
     }
@@ -83,42 +69,10 @@ const AddProduct = () => {
               <option value="men">Men</option>
               <option value="kid">Kid</option>
             </select>
-            {/* <Select
-              className="border border-[#7a7a7a] rounded-[6px]"
-              value={category}
-              style={{
-                width: 120,
-              }}
-              onChange={(value) => setCategory(value)}
-              options={[
-                {
-                  value: "women",
-                  label: "Women",
-                },
-                {
-                  value: "men",
-                  label: "Men",
-                },
-                {
-                  value: "kid",
-                  label: "Kid",
-                },
-              ]}
-            /> */}
           </div>
           <div className="flex flex-col flex-1">
             <span>Product Image</span>
             <input type="file" name="image" accept=".png, .jpg, .jpeg" />
-            {/* <Upload
-              accept=".png, .jpg, .jpeg"
-              maxCount={1}
-              beforeUpload={() => false}
-              onChange={handleImageChange}
-            >
-              <div className="px-4 py-2 border border-[#7a7a7a] rounded-3xl w-[110px] cursor-pointer">
-                Upload <UploadOutlined />
-              </div>
-            </Upload> */}
           </div>
         </div>
         <button
