@@ -4,10 +4,11 @@ import Item from "../Components/Item/Item";
 import { ShopContext } from "../Context/Context";
 import dropdown_icon from "../Components/Assets/dropdown_icon.png";
 import "./CSS/ShopCategory.css";
+import { BASE_URL } from "../config";
 
 export default function ShopCategory({ category, banner }) {
-  const { all_product } = useContext(ShopContext);
-  const filteredProduct = all_product.filter(
+  const { allProducts } = useContext(ShopContext);
+  const filteredProduct = allProducts?.filter(
     (item) => item.category === category
   );
 
@@ -30,11 +31,11 @@ export default function ShopCategory({ category, banner }) {
         {filteredProduct.map((item, i) => (
           <Item
             key={i}
-            id={item.id}
+            id={item._id}
             name={item.name}
             new_price={item.new_price}
             old_price={item.old_price}
-            image={item.image}
+            image={BASE_URL + "/" + item.image}
           />
         ))}
       </div>

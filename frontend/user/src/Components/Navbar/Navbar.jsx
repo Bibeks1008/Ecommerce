@@ -11,6 +11,8 @@ export default function Navbar() {
   const { getTotalCartAmountAndQuantity, isAuthenticated, setToken } =
     useContext(ShopContext);
 
+
+
   const [menu, setMenu] = useState("shop");
   const [, totalCartItems] = getTotalCartAmountAndQuantity();
 

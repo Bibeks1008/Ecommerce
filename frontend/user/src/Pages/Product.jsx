@@ -7,14 +7,15 @@ import RelatedProducts from "../Components/RelatedProducts/RelatedProducts";
 import { ShopContext } from "../Context/Context";
 
 export default function Product() {
-  const { all_product } = useContext(ShopContext);
+  const { allProducts } = useContext(ShopContext);
   const { productId } = useParams();
-  const product = all_product.find((item) => item.id === Number(productId));
+  const product = allProducts?.find((item) => item._id === productId);
+  console.log("from product ===> ", productId);
   return (
     <div>
       <Breadcrum product={product} />
       <ProductDisplay product={product} />
-      <RelatedProducts />
+      <RelatedProducts product={product} />
     </div>
   );
 }

@@ -15,7 +15,7 @@ exports.adminSignup = async (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase().trim();
   const name = req.body.name;
   const password = req.body.password;
   try {
@@ -32,7 +32,7 @@ exports.adminSignup = async (req, res, next) => {
 };
 
 exports.adminLogin = async (req, res, next) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase().trim();
   const password = req.body.password;
 
   try {
@@ -80,7 +80,7 @@ exports.userSignup = async (req, res, next) => {
     error.data = errors.array();
     throw error;
   }
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase().trim();
   const name = req.body.name;
   const password = req.body.password;
 
@@ -103,7 +103,7 @@ exports.userSignup = async (req, res, next) => {
 };
 
 exports.userLogin = async (req, res, next) => {
-  const email = req.body.email;
+  const email = req.body.email.toLowerCase().trim();
   const password = req.body.password;
 
   try {

@@ -1,5 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
+import axios from "axios";
+
 import all_product from "../Components/Assets/all_product.js";
+import { BASE_URL } from "../config.js";
 
 export const ShopContext = createContext(null);
 
@@ -34,14 +37,35 @@ export default function ShopContextProvider({ children }) {
     return [totalAmount, totalCartItems];
   };
 
+  const [allProducts, setAllProducts] = useState(null);
   const [token, setToken] = useState(localStorage.getItem("userToken") ?? null);
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== null ? true : false
   );
-  
+
   useEffect(() => {
     setIsAuthenticated(token !== null && token !== "");
   }, [token]);
+
+  const getAllProducts = async () => {
+    let responseData;
+    try {
+      responseData = await axios.get(BASE_URL + "/product");
+    } catch (err) {
+      console.error("Failed to fetch all products data.", err);
+    }
+
+    console.log("in getAllProducts ====>", responseData);
+    if (responseData.status === 200) {
+      setAllProducts(responseData?.data?.data);
+    }
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
+
+  console.log("all products are ===>", allProducts);
 
   const contextValue = {
     all_product,
@@ -53,6 +77,7 @@ export default function ShopContextProvider({ children }) {
     setToken,
     isAuthenticated,
     setIsAuthenticated,
+    allProducts,
   };
 
   return (

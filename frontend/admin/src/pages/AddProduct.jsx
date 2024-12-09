@@ -9,10 +9,10 @@ const AddProduct = () => {
   const { token } = useContext(adminContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const form = event.target;
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
 
-    console.log(data);
     try {
       const response = await axios.post(BASE_URL + "/product", data, {
         headers: {
@@ -20,6 +20,9 @@ const AddProduct = () => {
           Authorization: token,
         },
       });
+      if (response.status === 201) {
+        form.reset();
+      }
     } catch (err) {
       console.log(err);
     }
@@ -48,6 +51,7 @@ const AddProduct = () => {
               placeholder="New Price"
               type="number"
               name="new_price"
+              step=".01"
               className="border border-[#7a7a7a] rounded-[8px] p-2"
             />
           </div>
@@ -57,6 +61,7 @@ const AddProduct = () => {
               placeholder="Old Price"
               type="number"
               name="old_price"
+              step=".01"
               className="border border-[#7a7a7a] rounded-[8px] p-2"
             />
           </div>

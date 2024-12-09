@@ -2,12 +2,15 @@ import React, { useState, useContext } from "react";
 import "./CSS/LoginSignup.css";
 import axios from "axios";
 import { message } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import { BASE_URL } from "../config";
 import { ShopContext } from "../Context/Context";
 
 export default function LoginSignup() {
-  const { setToken } = useContext(ShopContext);
+  const { setToken, allProducts } = useContext(ShopContext);
+
+  const navigate = useNavigate();
 
   const [isSignup, setIsSignup] = useState(true);
   const [messageApi, contextHolder] = message.useMessage();
@@ -29,8 +32,6 @@ export default function LoginSignup() {
             },
           }
         );
-
-        console.log("response form signup ====> ", responseData);
 
         if (responseData.status === 201) {
           setIsSignup(false);
@@ -64,13 +65,16 @@ export default function LoginSignup() {
         if (responseData.status === 200) {
           localStorage.setItem("userToken", responseData?.data?.token);
           localStorage.setItem("userId", responseData?.data?.adminId);
-          setToken(localStorage.getItem("adminToken"));
+          setToken(localStorage.getItem("userToken"));
+          navigate("/");
         }
       } catch (err) {
         console.error("An error occurred while logging up", err);
       }
     }
   };
+
+  console.log("in,loginsighnup ===> ", BASE_URL + allProducts?.[0].image);
   return (
     <>
       {contextHolder}
