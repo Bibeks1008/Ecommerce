@@ -1,11 +1,12 @@
 const express = require("express");
+const path = require("path");
 const mongoose = require("mongoose");
 const bodyparser = require("body-parser");
 require("dotenv/config");
 const cors = require("cors");
 const multer = require("multer");
 
-const adminRoutes = require("./routes/adminAuth");
+const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/product");
 
 const { fileStorage, fileFilter } = require("./helpers/multer");
@@ -17,13 +18,14 @@ app.use(bodyparser.json());
 app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
+app.use("/images", express.static(path.join(__dirname, "images")));
 
 app.get("/", (req, res) => {
   res.send("Hello from the backend!");
 });
 
-app.use("/admin/auth", adminRoutes);
-app.use("/admin", productRoutes);
+app.use("/auth", authRoutes);
+app.use("/product", productRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);

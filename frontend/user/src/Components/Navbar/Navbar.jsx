@@ -8,10 +8,17 @@ import logo from "../Assets/logo.png";
 import cart_icon from "../Assets/cart_icon.png";
 
 export default function Navbar() {
-  const { getTotalCartAmountAndQuantity } = useContext(ShopContext);
+  const { getTotalCartAmountAndQuantity, isAuthenticated, setToken } =
+    useContext(ShopContext);
 
   const [menu, setMenu] = useState("shop");
   const [, totalCartItems] = getTotalCartAmountAndQuantity();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    localStorage.removeItem("userId");
+    setToken("");
+  };
   return (
     <div className="navbar">
       <div className="navbar-logo">
@@ -49,9 +56,13 @@ export default function Navbar() {
         </li>
       </ul>
       <div className="nav-login-cart">
-        <Link to="/login">
-          <button>Login</button>
-        </Link>
+        {!isAuthenticated ? (
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        ) : (
+          <button onClick={handleLogout}>Logout</button>
+        )}
         <Link to="/cart">
           <img src={cart_icon} alt="" />
         </Link>

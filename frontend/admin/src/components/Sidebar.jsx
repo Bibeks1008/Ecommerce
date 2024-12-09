@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { adminContext } from "../Context/Context";
 
@@ -7,15 +8,17 @@ import "./css/sidebar.css";
 const Sidebar = () => {
   const { selectedSidebar, setSelectedSidebar } = useContext(adminContext);
 
-  console.log(selectedSidebar);
-
+  const navigate = useNavigate();
   return (
     <div className="fixed left-0 bottom-0 top-[97px] px-5 pt-6 sidebar flex flex-col gap-4 ">
       <div
         className={`cursor-pointer px-3 py-2 rounded-[8px] ${
           selectedSidebar === "Add Product" ? "bg-slate-300" : ""
         }`}
-        onClick={() => setSelectedSidebar("Add Product")}
+        onClick={() => {
+          setSelectedSidebar("Add Product");
+          navigate("/add-product");
+        }}
       >
         Add Product
       </div>

@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import BoxContainer from "../components/BoxContainer";
 import axios from "axios";
 
 import { BASE_URL } from "../../config";
+import { adminContext } from "../Context/Context";
 
 const AddProduct = () => {
+  const { token } = useContext(adminContext);
   const handleSubmit = async (event) => {
     event.preventDefault();
     const fd = new FormData(event.target);
     const data = Object.fromEntries(fd.entries());
+
     console.log(data);
     try {
-      const response = await axios.post(BASE_URL + "/admin/add-product", data, {
+      const response = await axios.post(BASE_URL + "/product", data, {
         headers: {
           "Content-Type": "multipart/form-data",
+          Authorization: token,
         },
       });
     } catch (err) {
@@ -21,7 +25,6 @@ const AddProduct = () => {
     }
   };
 
-  console.log(image);
   return (
     <BoxContainer>
       <form

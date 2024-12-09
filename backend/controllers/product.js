@@ -37,3 +37,20 @@ exports.postAddProduct = async (req, res, next) => {
     next(err);
   }
 };
+
+exports.getProducts = async (req, res, next) => {
+  try {
+    const products = await Product.find();
+    if (products.length === 0) {
+      return res.status(204).send({ data: [], message: "No Product Found!" });
+    }
+    res
+      .status(200)
+      .send({ data: products, message: "Products retrieved successfully." });
+  } catch (err) {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  }
+};

@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState, useEffect } from "react";
 import all_product from "../Components/Assets/all_product.js";
 
 export const ShopContext = createContext(null);
@@ -28,11 +28,20 @@ export default function ShopContextProvider({ children }) {
     for (const [i, val] of Object.entries(cartItems)) {
       if (val > 0) {
         totalAmount += val * all_product[i].new_price;
-        totalCartItems += val
+        totalCartItems += val;
       }
     }
-    return [totalAmount, totalCartItems]
+    return [totalAmount, totalCartItems];
   };
+
+  const [token, setToken] = useState(localStorage.getItem("userToken") ?? null);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    token !== null ? true : false
+  );
+  
+  useEffect(() => {
+    setIsAuthenticated(token !== null && token !== "");
+  }, [token]);
 
   const contextValue = {
     all_product,
@@ -40,6 +49,10 @@ export default function ShopContextProvider({ children }) {
     addToCart,
     removeFromCart,
     getTotalCartAmountAndQuantity,
+    token,
+    setToken,
+    isAuthenticated,
+    setIsAuthenticated,
   };
 
   return (
