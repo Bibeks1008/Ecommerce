@@ -28,7 +28,7 @@ export default function ShopCategory({ category, banner }) {
       </div>
 
       <div className="shopcategory-products">
-        {filteredProduct.map((item, i) => (
+        {filteredProduct?.map((item, i) => (
           <Item
             key={i}
             id={item._id}

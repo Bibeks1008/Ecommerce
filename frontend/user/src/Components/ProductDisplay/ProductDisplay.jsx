@@ -8,7 +8,7 @@ import { ShopContext } from "../../Context/Context";
 import { BASE_URL } from "../../config";
 
 export default function ProductDisplay({ product }) {
-  const { addToCart, token } = useContext(ShopContext);
+  const { token, getCartItems } = useContext(ShopContext);
   const handleAddToCart = async (id) => {
     const data = {
       productId: id,
@@ -19,6 +19,10 @@ export default function ProductDisplay({ product }) {
         Authorization: token,
       },
     });
+
+    if (response.status === 200) {
+      getCartItems();
+    }
 
     console.log("add to cart response ===>", response);
   };

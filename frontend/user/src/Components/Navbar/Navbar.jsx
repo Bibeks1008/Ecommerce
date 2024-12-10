@@ -8,13 +8,9 @@ import logo from "../Assets/logo.png";
 import cart_icon from "../Assets/cart_icon.png";
 
 export default function Navbar() {
-  const { getTotalCartAmountAndQuantity, isAuthenticated, setToken } =
-    useContext(ShopContext);
-
-
+  const { cartItems, isAuthenticated, setToken } = useContext(ShopContext);
 
   const [menu, setMenu] = useState("shop");
-  const [, totalCartItems] = getTotalCartAmountAndQuantity();
 
   const handleLogout = () => {
     localStorage.removeItem("userToken");
@@ -68,7 +64,7 @@ export default function Navbar() {
         <Link to="/cart">
           <img src={cart_icon} alt="" />
         </Link>
-        <div className="nav-cart-count">{totalCartItems}</div>
+        <div className="nav-cart-count">{cartItems.length}</div>
       </div>
     </div>
   );

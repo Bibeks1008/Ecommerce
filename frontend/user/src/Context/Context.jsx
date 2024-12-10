@@ -15,8 +15,6 @@ const getDefaultCart = function (all_product) {
 };
 
 export default function ShopContextProvider({ children }) {
-  const [cartItems, setCartItems] = useState(getDefaultCart(all_product));
-
   const addToCart = function (itemId) {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
   };
@@ -37,7 +35,8 @@ export default function ShopContextProvider({ children }) {
     return [totalAmount, totalCartItems];
   };
 
-  const [allProducts, setAllProducts] = useState(null);
+  const [cartItems, setCartItems] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [token, setToken] = useState(localStorage.getItem("userToken") ?? null);
   const [isAuthenticated, setIsAuthenticated] = useState(
     token !== null ? true : false
@@ -46,6 +45,27 @@ export default function ShopContextProvider({ children }) {
   useEffect(() => {
     setIsAuthenticated(token !== null && token !== "");
   }, [token]);
+
+  const getCartItems = async () => {
+    let responseData;
+    try {
+      responseData = await axios.get(BASE_URL + "/cart", {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log("in Cartitems ===> ", responseData);
+      if (responseData.status === 200) {
+        setCartItems(responseData.data.items);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCartItems();
+  }, []);
 
   const getAllProducts = async () => {
     let responseData;
@@ -56,7 +76,7 @@ export default function ShopContextProvider({ children }) {
     }
 
     console.log("in getAllProducts ====>", responseData);
-    if (responseData.status === 200) {
+    if (responseData?.status === 200) {
       setAllProducts(responseData?.data?.data);
     }
   };
@@ -78,6 +98,8 @@ export default function ShopContextProvider({ children }) {
     isAuthenticated,
     setIsAuthenticated,
     allProducts,
+    cartItems,
+    getCartItems,
   };
 
   return (
