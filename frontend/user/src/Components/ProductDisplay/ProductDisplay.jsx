@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import "./ProductDisplay.css";
 import star_icon from "../Assets/star_icon.png";
 import star_dull_icon from "../Assets/star_dull_icon.png";
@@ -6,7 +8,20 @@ import { ShopContext } from "../../Context/Context";
 import { BASE_URL } from "../../config";
 
 export default function ProductDisplay({ product }) {
-  const { addToCart } = useContext(ShopContext);
+  const { addToCart, token } = useContext(ShopContext);
+  const handleAddToCart = async (id) => {
+    const data = {
+      productId: id,
+    };
+    const response = await axios.post(BASE_URL + "/cart", data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+
+    console.log("add to cart response ===>", response);
+  };
   return (
     <div className="productdisplay">
       <div className="productdisplay-left">
@@ -57,13 +72,9 @@ export default function ProductDisplay({ product }) {
             <div>XXL</div>
           </div>
         </div>
-        <button onClick={() => addToCart(product.id)}>ADD TO CART</button>
-        {/* <p className="productdisplay-right-category">
-          <span>Category :</span>Women, T-shirt, Crop Top
-        </p>
-        <p className="productdisplay-right-category">
-          <span>Tags :</span>Modern, Latest
-        </p> */}
+        <button onClick={() => handleAddToCart(product._id)}>
+          ADD TO CART
+        </button>
       </div>
     </div>
   );

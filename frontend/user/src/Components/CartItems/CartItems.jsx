@@ -2,10 +2,11 @@ import "./CartItems.css";
 import { useContext } from "react";
 import { ShopContext } from "../../Context/Context";
 import remove_icon from "../Assets/cart_cross_icon.png";
+import { BASE_URL } from "../../config";
 
 export default function CartItems() {
   const {
-    all_product,
+    allProducts,
     cartItems,
     addToCart,
     removeFromCart,
@@ -24,13 +25,13 @@ export default function CartItems() {
         <p>Remove</p>
       </div>
       <hr />
-      {all_product.map((product) => {
-        if (cartItems[product.id] > 0) {
+      {allProducts.map((product) => {
+        if (cartItems[product._id] > 0) {
           return (
             <div>
               <div className="cartitems-format cartitems-format-main">
                 <img
-                  src={product.image}
+                  src={BASE_URL + "/" + product.image}
                   alt=""
                   className="carticon-product-icon"
                 />
@@ -39,10 +40,10 @@ export default function CartItems() {
                 <button className="cartitems-quantity">
                   {cartItems[product.id]}
                 </button>
-                <p>${product.new_price * cartItems[product.id]}</p>
+                <p>${product.new_price * cartItems[product._id]}</p>
                 <img
                   src={remove_icon}
-                  onClick={() => removeFromCart(product.id)}
+                  onClick={() => removeFromCart(product._id)}
                   alt=""
                   className="cartitems-remove-icon"
                 />

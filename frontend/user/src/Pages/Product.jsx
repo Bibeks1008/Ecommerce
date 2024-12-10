@@ -10,7 +10,7 @@ export default function Product() {
   const { allProducts } = useContext(ShopContext);
   const { productId } = useParams();
   const product = allProducts?.find((item) => item._id === productId);
-  console.log("from product ===> ", productId);
+  console.log("from product ===> ", product);
   return (
     <div>
       <Breadcrum product={product} />

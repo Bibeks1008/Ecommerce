@@ -8,6 +8,7 @@ const multer = require("multer");
 
 const authRoutes = require("./routes/auth");
 const productRoutes = require("./routes/product");
+const shopRoutes = require("./routes/shop");
 
 const { fileStorage, fileFilter } = require("./helpers/multer");
 
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/product", productRoutes);
+app.use(shopRoutes);
 
 app.use((error, req, res, next) => {
   console.log(error);

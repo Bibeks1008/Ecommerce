@@ -124,7 +124,7 @@ exports.userLogin = async (req, res, next) => {
     const token = jwt.sign(
       {
         email: user.email,
-        adminId: user._id,
+        userId: user._id,
       },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
@@ -132,7 +132,7 @@ exports.userLogin = async (req, res, next) => {
 
     res.status(200).send({
       token: token,
-      adminId: user._id.toString(),
+      userId: user._id.toString(),
     });
   } catch (err) {
     if (!err.statusCode) {
