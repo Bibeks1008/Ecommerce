@@ -1,4 +1,5 @@
 import axios from "axios";
+import { message } from "antd";
 
 import "./ProductDisplay.css";
 import star_icon from "../Assets/star_icon.png";
@@ -8,26 +9,37 @@ import { ShopContext } from "../../Context/Context";
 import { BASE_URL } from "../../config";
 
 export default function ProductDisplay({ product }) {
-  const { token, getCartItems } = useContext(ShopContext);
+  const { token, getCartItems, isAuthenticated } = useContext(ShopContext);
+
+  const [messageApi, contextHolder] = message.useMessage();
+
   const handleAddToCart = async (id) => {
-    const data = {
-      productId: id,
-    };
-    const response = await axios.post(BASE_URL + "/cart", data, {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
+    console.log("token ===>", isAuthenticated);
+    if (isAuthenticated) {
+      const data = {
+        productId: id,
+      };
+      try {
+        const response = await axios.post(BASE_URL + "/cart", data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        });
 
-    if (response.status === 200) {
-      getCartItems();
+        if (response.status === 200) {
+          getCartItems();
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    } else {
+      messageApi.info("Please login first!");
     }
-
-    console.log("add to cart response ===>", response);
   };
   return (
     <div className="productdisplay">
+      {contextHolder}
       <div className="productdisplay-left">
         <div className="productdisplay-img-list">
           <img src={BASE_URL + "/" + product?.image} alt="" />
@@ -55,10 +67,10 @@ export default function ProductDisplay({ product }) {
         </div>
         <div className="productdisplay-right-prices">
           <div className="productdisplay-right-price-old">
-            ${product.old_price}
+            ${product?.old_price}
           </div>
           <div className="productdisplay-right-price-new">
-            ${product.new_price}
+            ${product?.new_price}
           </div>
         </div>
         <div className="productdisplay-right-description">
@@ -76,7 +88,7 @@ export default function ProductDisplay({ product }) {
             <div>XXL</div>
           </div>
         </div>
-        <button onClick={() => handleAddToCart(product._id)}>
+        <button onClick={() => handleAddToCart(product?._id)}>
           ADD TO CART
         </button>
       </div>
