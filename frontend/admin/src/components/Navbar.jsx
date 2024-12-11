@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "../assets/logo.png";
 import "../components/css/navbar.css";
@@ -8,10 +8,13 @@ import { adminContext } from "../Context/Context";
 const Navbar = () => {
   const { isAuthenticated, setToken } = useContext(adminContext);
 
+  const navigate = useNavigate();
+
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("adminId");
     setToken("");
+    navigate("/login");
   };
   return (
     <div className="flex justify-between py-4 px-20 navbar">

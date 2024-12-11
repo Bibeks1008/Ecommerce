@@ -16,7 +16,7 @@ export default function AdminContextProvider({ children }) {
 
   useEffect(() => {
     let decoded;
-    if (isAuthenticated) {
+    if (isAuthenticated && token !== "" && token !== null) {
       decoded = jwtDecode(token);
     }
 
