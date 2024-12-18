@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import "./NewCollections.css";
-import new_collections from "../Assets/new_collections.js";
 import Item from "../Item/Item.jsx";
 import { ShopContext } from "../../Context/Context.jsx";
 import { BASE_URL } from "../../config.js";

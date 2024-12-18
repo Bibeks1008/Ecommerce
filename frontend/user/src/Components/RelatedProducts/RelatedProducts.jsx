@@ -1,6 +1,5 @@
 import { useContext } from "react";
 import "./RelatedProducts.css";
-import data_product from "../Assets/data";
 import Item from "../Item/Item";
 import { ShopContext } from "../../Context/Context";
 import { BASE_URL } from "../../config";

@@ -74,7 +74,6 @@ export default function LoginSignup() {
     }
   };
 
-  console.log("in,loginsighnup ===> ", BASE_URL + allProducts?.[0].image);
   return (
     <>
       {contextHolder}
